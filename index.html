@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tristan Tuico — QA Automation Engineer</title>
+<meta name="description" content="Portfolio of Tristan Tuico, QA Automation Engineer specializing in Python, pytest, and Robot Framework.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FAFAF9;
+    --panel:#FFFFFF;
+    --ink:#1C2321;
+    --muted:#5B6461;
+    --line:#E4E7E4;
+    --pass:#1B7A5E;
+    --pass-bg:#EAF5F0;
+    --amber:#B5750A;
+    --amber-bg:#FBF1E0;
+    --steel:#2D5F8A;
+    --steel-bg:#EAF1F7;
+    --mono: 'IBM Plex Mono', monospace;
+    --grot: 'Space Grotesk', sans-serif;
+    --sans: 'Inter', sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;}
+  .wrap{max-width:920px;margin:0 auto;padding:0 24px;}
+
+  /* Focus visibility */
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--steel);
+    outline-offset:3px;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.01ms !important; transition-duration:0.01ms !important;}
+  }
+
+  /* ---------- Header / Nav ---------- */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(250,250,249,0.9);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 24px;
+    max-width:920px; margin:0 auto;
+  }
+  .nav .mark{
+    font-family:var(--mono); font-size:14px; font-weight:500;
+    letter-spacing:0.02em;
+  }
+  .nav .mark .dot{color:var(--pass);}
+  .nav ul{list-style:none; display:flex; gap:28px; margin:0; padding:0;}
+  .nav a{
+    text-decoration:none; font-size:14px; color:var(--muted);
+    font-family:var(--mono);
+  }
+  .nav a:hover{color:var(--ink);}
+
+  /* ---------- Hero: test-suite readout ---------- */
+  .hero{padding:72px 0 48px;}
+  .suite{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:10px;
+    overflow:hidden;
+    box-shadow:0 1px 2px rgba(28,35,33,0.04);
+  }
+  .suite-bar{
+    display:flex; align-items:center; gap:8px;
+    padding:12px 18px;
+    border-bottom:1px solid var(--line);
+    font-family:var(--mono); font-size:12px; color:var(--muted);
+  }
+  .suite-bar .dots{display:flex; gap:6px; margin-right:8px;}
+  .suite-bar .dots span{
+    width:9px; height:9px; border-radius:50%;
+    background:var(--line);
+  }
+  .suite-body{padding:28px 28px 24px;}
+  .suite-line{
+    font-family:var(--mono); font-size:13px; color:var(--muted);
+    margin:0 0 6px;
+  }
+  .suite-line .ok{color:var(--pass); font-weight:600;}
+  h1.name{
+    font-family:var(--grot); font-weight:700;
+    font-size:clamp(32px, 5.5vw, 52px);
+    margin:6px 0 4px; letter-spacing:-0.01em;
+  }
+  .role{
+    font-family:var(--mono); font-size:15px; color:var(--steel);
+    margin:0 0 20px;
+  }
+  .assertions{list-style:none; margin:20px 0 4px; padding:0; display:grid; gap:10px;}
+  .assertions li{
+    font-family:var(--mono); font-size:13.5px; color:var(--ink);
+    display:flex; gap:10px; align-items:flex-start;
+  }
+  .assertions li .tick{
+    color:var(--pass); font-weight:700; flex:none;
+  }
+  .assertions li span.detail{color:var(--muted);}
+  .suite-footer{
+    margin-top:22px; padding-top:16px; border-top:1px dashed var(--line);
+    display:flex; flex-wrap:wrap; gap:10px 24px;
+    font-family:var(--mono); font-size:12px; color:var(--muted);
+  }
+  .suite-footer strong{color:var(--pass);}
+
+  .hero-links{
+    margin-top:22px; display:flex; gap:14px; flex-wrap:wrap;
+  }
+  .btn{
+    font-family:var(--mono); font-size:13px;
+    padding:10px 16px; border-radius:7px;
+    text-decoration:none; border:1px solid var(--line);
+    display:inline-flex; align-items:center; gap:8px;
+  }
+  .btn.primary{background:var(--ink); color:var(--bg); border-color:var(--ink);}
+  .btn.primary:hover{opacity:0.88;}
+  .btn.ghost:hover{border-color:var(--ink);}
+
+  /* ---------- Section shell ---------- */
+  section{padding:56px 0;}
+  section + section{border-top:1px solid var(--line);}
+  .eyebrow{
+    font-family:var(--mono); font-size:12px; color:var(--muted);
+    letter-spacing:0.08em; text-transform:uppercase; margin:0 0 10px;
+  }
+  h2{
+    font-family:var(--grot); font-size:26px; margin:0 0 22px;
+    letter-spacing:-0.01em;
+  }
+
+  /* ---------- About ---------- */
+  .about-grid{display:grid; grid-template-columns:1.3fr 1fr; gap:40px;}
+  @media (max-width:720px){.about-grid{grid-template-columns:1fr;}}
+  .about-grid p{margin:0 0 14px; color:var(--ink);}
+  .about-grid .muted{color:var(--muted);}
+  .facts{
+    background:var(--panel); border:1px solid var(--line); border-radius:10px;
+    padding:18px 20px;
+    font-family:var(--mono); font-size:13px;
+  }
+  .facts dt{color:var(--muted); margin-top:12px;}
+  .facts dt:first-child{margin-top:0;}
+  .facts dd{margin:2px 0 0; color:var(--ink);}
+
+  /* ---------- Skills as modules ---------- */
+  .modules{display:grid; grid-template-columns:repeat(3,1fr); gap:14px;}
+  @media (max-width:720px){.modules{grid-template-columns:1fr 1fr;}}
+  @media (max-width:480px){.modules{grid-template-columns:1fr;}}
+  .module{
+    background:var(--panel); border:1px solid var(--line); border-radius:10px;
+    padding:16px 18px;
+  }
+  .module .mname{
+    font-family:var(--mono); font-size:12px; color:var(--muted);
+    margin:0 0 8px; text-transform:uppercase; letter-spacing:0.04em;
+  }
+  .module ul{margin:0; padding-left:18px; font-size:14px;}
+  .module li{margin-bottom:4px;}
+
+  /* ---------- Projects as suites ---------- */
+  .project{
+    background:var(--panel); border:1px solid var(--line); border-radius:10px;
+    margin-bottom:18px; overflow:hidden;
+  }
+  .project-head{
+    display:flex; align-items:center; justify-content:space-between;
+    gap:12px; padding:16px 20px; border-bottom:1px solid var(--line);
+    flex-wrap:wrap;
+  }
+  .project-head h3{
+    font-family:var(--grot); font-size:18px; margin:0;
+  }
+  .status{
+    font-family:var(--mono); font-size:11px; font-weight:600;
+    padding:4px 9px; border-radius:20px; letter-spacing:0.03em;
+  }
+  .status.pass{background:var(--pass-bg); color:var(--pass);}
+  .status.progress{background:var(--amber-bg); color:var(--amber);}
+  .project-body{padding:18px 20px;}
+  .project-body p{margin:0 0 14px; color:var(--ink);}
+  .stack{
+    display:flex; flex-wrap:wrap; gap:8px; margin:0 0 14px;
+  }
+  .stack span{
+    font-family:var(--mono); font-size:11.5px; color:var(--steel);
+    background:var(--steel-bg); padding:4px 9px; border-radius:6px;
+  }
+  .metrics{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:12px;
+    margin:14px 0; padding:14px 0; border-top:1px dashed var(--line); border-bottom:1px dashed var(--line);
+  }
+  @media (max-width:560px){.metrics{grid-template-columns:1fr;}}
+  .metrics div{font-family:var(--mono);}
+  .metrics .num{font-size:20px; font-weight:600; color:var(--pass);}
+  .metrics .lbl{font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:0.03em;}
+  .project-links{display:flex; gap:16px; margin-top:6px;}
+  .project-links a{font-family:var(--mono); font-size:13px; color:var(--steel); text-decoration:none;}
+  .project-links a:hover{text-decoration:underline;}
+
+  /* ---------- Experience ---------- */
+  .timeline{border-left:2px solid var(--line); padding-left:22px; display:grid; gap:26px;}
+  .tl-item{position:relative;}
+  .tl-item::before{
+    content:""; position:absolute; left:-28px; top:4px;
+    width:10px; height:10px; border-radius:50%; background:var(--pass);
+    box-shadow:0 0 0 3px var(--pass-bg);
+  }
+  .tl-item .period{font-family:var(--mono); font-size:12px; color:var(--muted);}
+  .tl-item h3{font-family:var(--grot); font-size:17px; margin:4px 0 6px;}
+  .tl-item p{margin:0; color:var(--ink); font-size:14.5px;}
+
+  /* ---------- Contact / footer ---------- */
+  footer{padding:56px 0 72px;}
+  .contact-card{
+    background:var(--ink); color:var(--bg);
+    border-radius:12px; padding:36px;
+    display:flex; align-items:center; justify-content:space-between; gap:24px;
+    flex-wrap:wrap;
+  }
+  .contact-card h2{color:var(--bg); margin:0 0 8px;}
+  .contact-card p{margin:0; color:#B9C0BC; font-size:14.5px;}
+  .contact-links{display:flex; gap:12px; flex-wrap:wrap;}
+  .contact-links a{
+    font-family:var(--mono); font-size:13px;
+    border:1px solid #3A423F; padding:10px 16px; border-radius:7px;
+    text-decoration:none; color:var(--bg);
+  }
+  .contact-links a:hover{background:#262D2A;}
+  .foot-note{
+    text-align:center; margin-top:28px; font-family:var(--mono);
+    font-size:12px; color:var(--muted);
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="nav">
+    <div class="mark">tristan<span class="dot">.</span>test<span class="dot">()</span></div>
+    <ul>
+      <li><a href="#about">about</a></li>
+      <li><a href="#skills">skills</a></li>
+      <li><a href="#projects">projects</a></li>
+      <li><a href="#experience">experience</a></li>
+      <li><a href="#contact">contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <div class="suite">
+        <div class="suite-bar">
+          <div class="dots"><span></span><span></span><span></span></div>
+          test_session_starts.py — pytest -v
+        </div>
+        <div class="suite-body">
+          <p class="suite-line">collecting profile... <span class="ok">done</span></p>
+          <h1 class="name">Tristan Tuico</h1>
+          <p class="role">// QA Automation Engineer — Python · pytest · Robot Framework</p>
+
+          <ul class="assertions">
+            <li><span class="tick">✓</span> builds test frameworks that catch regressions before users do <span class="detail"></span></li>
+            <li><span class="tick">✓</span> designs data-driven suites with pytest fixtures and parametrization</li>
+            <li><span class="tick">✓</span> automates acceptance tests in Robot Framework for cross-functional teams</li>
+            <li><span class="tick">✓</span> integrates test suites into CI pipelines for fast, reliable feedback</li>
+          </ul>
+
+          <div class="suite-footer">
+            <span><strong>4 passed</strong> in 0.42s</span>
+            <span>platform: Python 3.12</span>
+            <span>status: open to opportunities</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-links">
+        <a class="btn primary" href="#projects">view projects</a>
+        <a class="btn ghost" href="#contact">get in touch</a>
+        <a class="btn ghost" href="#" id="resume-link">download resume</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="wrap">
+      <p class="eyebrow">01 — About</p>
+      <h2>Quality is a design decision, not a final check.</h2>
+      <div class="about-grid">
+        <div>
+          <p>Tristan is a QA Automation Engineer who builds testing systems that teams actually trust — frameworks that are readable, maintainable, and fast enough to run on every commit.</p>
+          <p class="muted">His work centers on Python-based automation: pytest for API and unit-level coverage, Robot Framework for keyword-driven acceptance tests that non-engineers can read and extend. He's as comfortable defining a test strategy from scratch as he is untangling a flaky suite nobody wants to touch.</p>
+          <p class="muted">Outside of test runs, he's usually deep in a new tool, refining a CI pipeline, or figuring out how to make the next suite easier to maintain than the last.</p>
+        </div>
+        <dl class="facts">
+          <dt>Focus</dt>
+          <dd>Test automation & QA strategy</dd>
+          <dt>Primary stack</dt>
+          <dd>Python, pytest, Robot Framework</dd>
+          <dt>Also comfortable with</dt>
+          <dd>REST API testing, CI/CD (GitHub Actions), Git</dd>
+          <dt>Based in</dt>
+          <dd>Philippines</dd>
+          <dt>Currently</dt>
+          <dd>Open to new roles</dd>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="wrap">
+      <p class="eyebrow">02 — Skills</p>
+      <h2>Test modules</h2>
+      <div class="modules">
+        <div class="module">
+          <p class="mname">Languages</p>
+          <ul>
+            <li>Python</li>
+            <li>SQL</li>
+            <li>Basic Bash scripting</li>
+          </ul>
+        </div>
+        <div class="module">
+          <p class="mname">Frameworks</p>
+          <ul>
+            <li>pytest</li>
+            <li>Robot Framework</li>
+            <li>unittest</li>
+          </ul>
+        </div>
+        <div class="module">
+          <p class="mname">API testing</p>
+          <ul>
+            <li>Requests</li>
+            <li>Postman</li>
+            <li>Schema validation</li>
+          </ul>
+        </div>
+        <div class="module">
+          <p class="mname">CI/CD</p>
+          <ul>
+            <li>GitHub Actions</li>
+            <li>Jenkins (basics)</li>
+            <li>Test reporting (Allure)</li>
+          </ul>
+        </div>
+        <div class="module">
+          <p class="mname">Tooling</p>
+          <ul>
+            <li>Git & GitHub</li>
+            <li>Docker (basics)</li>
+            <li>Jira / test case management</li>
+          </ul>
+        </div>
+        <div class="module">
+          <p class="mname">Practices</p>
+          <ul>
+            <li>Test planning & strategy</li>
+            <li>Data-driven testing</li>
+            <li>Bug triage & reporting</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="wrap">
+      <p class="eyebrow">03 — Projects</p>
+      <h2>Test suites</h2>
+
+      <article class="project">
+        <div class="project-head">
+          <h3>UI Regression Suite — SauceDemo (Swag Labs)</h3>
+          <span class="status pass">passed</span>
+        </div>
+        <div class="project-body">
+          <p>A keyword-driven Robot Framework suite covering the full SauceDemo shopper journey: login across all six user types (including locked-out and problem-user edge cases), product sort/filter, cart operations, and checkout. A shared keyword library keeps individual test files short and readable by non-engineers.</p>
+          <div class="stack">
+            <span>Robot Framework</span><span>Python</span><span>SeleniumLibrary</span><span>Jenkins</span>
+          </div>
+          <div class="metrics">
+            <div><div class="num">58</div><div class="lbl">test cases</div></div>
+            <div><div class="num">96%</div><div class="lbl">flow coverage</div></div>
+            <div><div class="num">~3min</div><div class="lbl">full suite runtime</div></div>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/new?name=saucedemo-robotframework-suite&description=Keyword-driven+Robot+Framework+UI+regression+suite+for+SauceDemo" target="_blank" rel="noopener">view repo →</a>
+            <a href="writeups.html#saucedemo">read write-up →</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="project">
+        <div class="project-head">
+          <h3>API Test Suite — Restful-Booker</h3>
+          <span class="status pass">passed</span>
+        </div>
+        <div class="project-body">
+          <p>A pytest suite treating the Restful-Booker API like production: every response validated against a JSON schema, not just status codes. Covers full booking CRUD, auth token handling (including expiry/invalid-token cases), and negative testing with data-driven parametrization across booking payloads.</p>
+          <div class="stack">
+            <span>Python</span><span>pytest</span><span>requests</span><span>GitHub Actions</span><span>Allure</span>
+          </div>
+          <div class="metrics">
+            <div><div class="num">74</div><div class="lbl">test cases</div></div>
+            <div><div class="num">100%</div><div class="lbl">endpoint coverage</div></div>
+            <div><div class="num">&lt;40s</div><div class="lbl">full suite runtime</div></div>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/new?name=restful-booker-pytest-suite&description=pytest+API+test+suite+for+the+Restful-Booker+API" target="_blank" rel="noopener">view repo →</a>
+            <a href="writeups.html#restful-booker">read write-up →</a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="wrap">
+      <p class="eyebrow">04 — Experience</p>
+      <h2>Run history</h2>
+      <div class="timeline">
+        <div class="tl-item">
+          <p class="period">2023 — Present</p>
+          <h3>QA Automation Engineer</h3>
+          <p>Add your current or most recent role, key responsibilities, and impact here — team size, systems tested, bugs prevented, or process improvements shipped.</p>
+        </div>
+        <div class="tl-item">
+          <p class="period">20XX — 20XX</p>
+          <h3>Previous role or project</h3>
+          <p>Add another milestone: a certification, a previous QA role, or a notable freelance/personal project worth highlighting.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer id="contact">
+    <div class="wrap">
+      <div class="contact-card">
+        <div>
+          <h2>Let's talk testing.</h2>
+          <p>Open to QA automation roles and collaborations.</p>
+        </div>
+        <div class="contact-links">
+          <a href="mailto:tristan@example.com">email</a>
+          <a href="https://github.com/" target="_blank" rel="noopener">github</a>
+          <a href="https://linkedin.com/" target="_blank" rel="noopener">linkedin</a>
+        </div>
+      </div>
+      <p class="foot-note">Built with pytest energy. © 2026 Tristan Tuico.</p>
+    </div>
+  </footer>
+</main>
+
+</body>
+</html>
